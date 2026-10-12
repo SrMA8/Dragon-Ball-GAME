@@ -7,10 +7,9 @@ import Swal from "sweetalert2";
 import Acciones from "./Acciones.js";
 import { atk_basico, atk_especial, cargar_ki, usar_semilla } from './interfaz.js';
 
-// 1. CONFIGURACIÓN Y CONTROL DE AUDIOS
-const audioSeleccion = new Audio('./public/audios/pelea.mp4');
-const audioRound = new Audio('./public/audios/roud.mp3');
-const audioCombate = new Audio('./public/audios/portaDBZ.mp4');
+const audioSeleccion = new Audio('./audios/pelea.mp4');
+const audioRound = new Audio('./audios/roud.mp3');
+const audioCombate = new Audio('./audios/portaDBZ.mp4');
 
 audioSeleccion.loop = true;
 audioCombate.loop = true;
@@ -21,7 +20,6 @@ audioCombate.volume = 0.6;
 
 let audioIniciado = false;
 
-// Los navegadores requieren interacción del usuario para reproducir sonido
 window.addEventListener('click', () => {
     if (!audioIniciado) {
         audioSeleccion.play().catch(err => console.log("Audio selección iniciado:", err));
@@ -29,15 +27,14 @@ window.addEventListener('click', () => {
     }
 }, { once: true });
 
-// 2. DICCIONARIO DE MAPAS Y ESTILOS
 const datosMapas = {
-    "admosera": { nombre: "Atmósfera Terrestre", img: "./public/img/escenarios/admosera.jpg" },
-    "anenmba": { nombre: "Infierno (Janemba)", img: "./public/img/escenarios/anenmba.jpg" },
-    "brolypelea": { nombre: "Planeta Vampa (Broly)", img: "./public/img/escenarios/brolypelea.jpg" },
-    "dystopia": { nombre: "Ciudad Distópica", img: "./public/img/escenarios/dystopia.jpg" },
-    "mundobylls": { nombre: "Planeta de Bills", img: "./public/img/escenarios/mundobylls.jpg" },
-    "palacio": { nombre: "Templo Sagrado de Kami", img: "./public/img/escenarios/palacio.jpg" },
-    "torneodelpoder": { nombre: "Torneo del Poder", img: "./public/img/escenarios/torneodelpoder.jpg" }
+    "admosera": { nombre: "Atmósfera Terrestre", img: "./img/escenarios/admosera.jpg" },
+    "anenmba": { nombre: "Infierno (Janemba)", img: "./img/escenarios/anenmba.jpg" },
+    "brolypelea": { nombre: "Planeta Vampa (Broly)", img: "./img/escenarios/brolypelea.jpg" },
+    "dystopia": { nombre: "Ciudad Distópica", img: "./img/escenarios/dystopia.jpg" },
+    "mundobylls": { nombre: "Planeta de Bills", img: "./img/escenarios/mundobylls.jpg" },
+    "palacio": { nombre: "Templo Sagrado de Kami", img: "./img/escenarios/palacio.jpg" },
+    "torneodelpoder": { nombre: "Torneo del Poder", img: "./img/escenarios/torneodelpoder.jpg" }
 };
 
 const estilosPersonajes = {
@@ -51,8 +48,6 @@ const estilosPersonajes = {
     "Gogeta": { borde: "4px solid #dc3545", sombra: "0 0 20px rgba(220, 53, 69, 0.8)", colorTexto: "text-danger" }
 };
 
-
-// 3. SELECCIÓN DE ELEMENTOS DEL DOM
 const btn_player1 = document.getElementById("btn_player1");
 const btn_player2 = document.getElementById("btn_player2");
 const nombre1 = document.getElementById("player1");
@@ -86,7 +81,6 @@ let turno = 1;
 let espera1 = 1, espera2 = 1;
 let fin = false;
 
-// Variables de Mapas
 const seccionMapas = document.getElementById("seccion_mapas");
 const btnMapa = document.getElementById("btn_mapa");
 const tituloMapa = document.getElementById("titulo_mapa");
@@ -94,7 +88,6 @@ let mapaP1 = "";
 let mapaP2 = "";
 let turnoMapa = 1;
 
-// 4. FUNCIONES DE INTERFAZ Y REGLAS
 const barras = () => {
     if (jugador1) {
         vida1.style.width = `${jugador1.getVida()}%`;
@@ -182,12 +175,9 @@ const revisar_fin = () => {
     return true;
 };
 
-// ==========================================
-// 5. INICIO DEL COMBATE Y TRANSICIÓN DE AUDIO
 const iniciar_combate = () => {
     nombres.classList.add("d-none");
 
-    // Pausar audio de selección y reproducir la alerta "Final round"
     audioSeleccion.pause();
     audioSeleccion.currentTime = 0;
     audioRound.play().catch(err => console.log("Error audio round:", err));
@@ -210,7 +200,6 @@ const iniciar_combate = () => {
         },
         willClose: () => clearInterval(intervalo)
     }).then(() => {
-        // Iniciar la música principal de combate
         audioCombate.play().catch(err => console.log("Error audio combate:", err));
 
         tarjetas.classList.remove("d-none");
@@ -218,8 +207,6 @@ const iniciar_combate = () => {
     });
 };
 
-
-// 6. SELECCIÓN DE ESCENARIOS
 document.querySelectorAll(".mapa-opcion").forEach((tarjeta) => {
     tarjeta.addEventListener("click", () => {
         document.querySelectorAll(".mapa-opcion").forEach(t => t.classList.remove("border-danger", "border-primary", "border-4"));
@@ -287,7 +274,6 @@ if (btnMapa) {
     });
 }
 
-// 7. SELECCIÓN DE PERSONAJES JUGADOR 1 Y 2
 const player1 = document.getElementById("py1");
 [...player1.querySelectorAll("img")].map((imagen) => {
     imagen.addEventListener('click', (event) => {
@@ -310,7 +296,7 @@ btn_player1.addEventListener("click", () => {
     
     username1.innerText = nombre1.value;
     personaje1.innerText = pj1;
-    img1.src = `./public/img/${pj1}/base.png`;
+    img1.src = `./img/${pj1}/base.png`;
 
     if (estilosPersonajes[pj1]) {
         cardJugador1.style.border = estilosPersonajes[pj1].borde;
@@ -321,7 +307,7 @@ btn_player1.addEventListener("click", () => {
     if (jugador1 && jugador2) {
         seccionPersonajes.classList.add("d-none");
         seccionMapas.classList.remove("d-none");
-        document.body.style.backgroundImage = `url('./public/img/naveespacial.jpg')`;
+        document.body.style.backgroundImage = `url('./img/naveespacial.jpg')`;
     }
 });
 
@@ -347,7 +333,7 @@ btn_player2.addEventListener("click", () => {
     
     username2.innerText = nombre2.value;
     personaje2.innerText = pj2;
-    img2.src = `./public/img/${pj2}/base.png`;
+    img2.src = `./img/${pj2}/base.png`;
 
     if (estilosPersonajes[pj2]) {
         cardJugador2.style.border = estilosPersonajes[pj2].borde;
@@ -358,11 +344,10 @@ btn_player2.addEventListener("click", () => {
     if (jugador1 && jugador2) {
         seccionPersonajes.classList.add("d-none");
         seccionMapas.classList.remove("d-none");
-        document.body.style.backgroundImage = `url('./public/img/naveespacial.jpg')`;
+        document.body.style.backgroundImage = `url('./img/naveespacial.jpg')`;
     }
 });
 
-// 8. CONTROLES DE BOTONES DE ATAQUE
 if (btn_py1) {
     [...btn_py1.querySelectorAll("button")].map(boton => {
         boton.addEventListener("click", () => {
