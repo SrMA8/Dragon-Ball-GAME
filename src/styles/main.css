@@ -1,0 +1,52 @@
+/* Estilos generales del fondo de pantalla */
+body {
+    background-image: url('../../public/img/seleccionOndo.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: background-image 0.5s ease-in-out;
+    min-height: 100vh;
+}
+
+/* Estilo de título tipo Arcade */
+.titulo-arcade {
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-size: 3.5rem;
+    font-style: italic;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #ffeb3b 20%, #ff9800 50%, #f44336 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px #000;
+    filter: drop-shadow(4px 4px 0px #000);
+    letter-spacing: 2px;
+}
+
+.seleccion-pj {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.seleccion-pj:hover {
+    transform: scale(1.08);
+}
+
+.card-combate {
+    background: rgba(15, 15, 20, 0.85) !important;
+    backdrop-filter: blur(8px);
+    color: #fff !important;
+    border-radius: 12px;
+}
+
+.card-combate .text-muted {
+    color: #adb5bd !important;
+}
+
+.panel-seleccion {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
